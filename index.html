@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="../MBright/access/style.css">
+    <link rel="stylesheet" href="./access/style.css">
 </head>
 
 <body>
@@ -526,9 +526,16 @@
 <script>
     const $ = document.querySelector.bind(document);
     const $$ = document.querySelectorAll.bind(document);
+    const ENDPOINT_SERVER = "http://137.184.232.94:3006/api/v1";
+
+    /*
+        API:
+        + Products: /products?page=1
+        + Categories: /categories/all
+    */
 </script>
-<script src="product.js" type="module"></script>
-<script src="fortfolioProduct.js"  type="module"></script>
-<script src="cart.js"  type="module"></script>
+<script src="./product.js" type="module"></script>
+<script src="./fortfolioProduct.js"  type="module"></script>
+<script src="./cart.js"  type="module"></script>
 
 </html>

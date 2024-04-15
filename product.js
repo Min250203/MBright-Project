@@ -1,4 +1,4 @@
-import Cart from "../MBright/cart.js";
+import Cart from "./cart.js";
 const productItem = $('.all__product');
 const logo = $('.logo');
 const home = $('.home__page');
@@ -19,7 +19,6 @@ const Product = {
     statusSize: 0,
     quantityProduct: 1,
     handleRenderProduct: function () {
-        console.log(1)
         let _this = this;
         productItem.onclick = function () {
             $('.slider').classList.add('change__product');
