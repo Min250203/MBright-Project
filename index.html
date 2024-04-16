@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="./access/style.css">
+    <link rel="stylesheet" href="./static/style.css">
 </head>
 
 <body>
@@ -94,8 +94,8 @@
                     <div class="infor__name_fortfo">BEST SELLER</div>
                     <div class="descr">Sweater Unisex Thời Trang</div>
                 </div>
-                <div class="content__infor_product">
-                    <div class="infor__product">
+                <div class="content__infor_product content__infor_product--first">
+                    <!-- <div class="infor__product">
                         <div class="image__product">
                             <img class="item__iamge_product"
                                 src="https://levents.asia/cdn/shop/files/Red_LSWOVCOK403UR0102SS24_1.jpg?v=1711446698&width=713"
@@ -182,7 +182,7 @@
                             </div>
                             <button class="btn__buy_product">Mua Ngay</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- </div> -->
 
@@ -457,8 +457,8 @@
                         <div class="name__infor_product">Levents® Classic Regular Tee/ Black</div>
                         <div class="price">370.000 VND</div>
                         <div class="discount">Voucher của Brand</div>
-                        <div class="color__item">Màu</div>
-                        <div class="color__infor_product">
+                        <!-- <div class="color__item">Màu</div> -->
+                        <!-- <div class="color__infor_product">
                             <div class="box__color color1">
                                 <div class="item__color" style="background-color: #000"></div>
                             </div>
@@ -471,13 +471,16 @@
                             <div class="box__color color4">
                                 <div class="item__color" style="background-color: green"></div>
                             </div>
-                        </div>
-                        <div class="size__item">Size</div>
+                        </div> -->
+                        <!-- <div class="size__item">Size</div>
                         <div class="size__infor_product">
                             <button class="select__size size1">Size 1</button>
                             <button class="select__size size2">Size 2</button>
                             <button class="select__size size3">Size 3</button>
                             <button class="select__size size4">Size 4</button>
+                        </div> -->
+                        <div class="product_option">
+                            
                         </div>
 
                         <div class="quantity">
@@ -527,7 +530,7 @@
     const $ = document.querySelector.bind(document);
     const $$ = document.querySelectorAll.bind(document);
     const ENDPOINT_SERVER = "http://137.184.232.94:3006/api/v1";
-
+    const ENDPOINT_IMAGE = "http://137.184.232.94:3006";
     /*
         API:
         + Products: /products?page=1
