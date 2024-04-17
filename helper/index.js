@@ -88,11 +88,13 @@ const addEventProducts = (items) => {
   const btnBuy = $$(".btn__buy_product");
   const btnClose = $(".icon-close");
   btnBuy.forEach((element, index) => {
+
     element.onclick = function () {
       console.log(element.parentNode.parentNode);
       $(".container__overlay").classList.add("return__page");
       $(".name__infor_product").textContent =
         element.parentNode.querySelector(".name__item").textContent;
+
       $(".price").textContent =
         element.parentNode.querySelector(".price__item").textContent;
       $(".mImage").src = element.parentNode.parentNode.querySelector(
@@ -103,25 +105,25 @@ const addEventProducts = (items) => {
         return `<img class="dImage" src="${ENDPOINT_IMAGE + item}"
             alt="">`;
       });
+
+       
       $(".detail__image").innerHTML = listImages.join(" ");
 
       const detailImage = $$(".dImage");
 
       detailImage.forEach((element) => {
         element.onclick = function (e) {
-          $(
-            ".mImg__product"
-          ).innerHTML = `<img class="mImage" src="${e.target.src}"
+          $(".mImg__product").innerHTML = `<img class="mImage" src="${e.target.src}"
                       alt="">`;
         };
       });
 
-      const attributeParentEl = $(".product_option");
-      if (items[index].options.length > 0) {
-        attributeParentEl.innerHTML = attributesHtml(items[index].options);
-      } else {
-        attributeParentEl.innerHTML = "";
-      }
+      // const attributeParentEl = $(".product_option");
+      // if (items[index].options.length > 0) {
+      //   attributeParentEl.innerHTML = attributesHtml(items[index].options);
+      // } else {
+      //   attributeParentEl.innerHTML = "";
+      // }
     };
   });
   btnClose.onclick = function () {

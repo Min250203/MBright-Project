@@ -186,13 +186,30 @@ const getProducts = async () => {
 
   if (data.status === 200) {
     const items = data.payload;
-    const parentElement = document.querySelector(
+    const parentElement = $(
       ".content__infor_product--first"
     );
+
     renderListProduct(items, parentElement);
     addEventProducts(items);
     listProduct = items;
   }
 };
 
+const getProducts_1= async () => {
+  const data = await fetchData("/products", "GET");
+
+  if (data.status === 200) {
+    const items = data.payload;
+    const parentElement = $(
+    ".content__infor_product--second"
+  );
+
+    renderListProduct(items, parentElement);
+    addEventProducts(items);
+    listProduct = items;
+  } 
+};
+
 getProducts();
+getProducts_1();
