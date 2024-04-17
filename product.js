@@ -190,7 +190,7 @@ const getProducts = async () => {
       ".content__infor_product--first"
     );
     renderListProduct(items, parentElement);
-    addEventProducts(items);
+    addEventProducts(items, parentElement);
     listProduct = items;
   }
 };

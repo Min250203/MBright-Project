@@ -84,12 +84,12 @@ const renderListProduct = (items, parentEl) => {
   }
 };
 
-const addEventProducts = (items) => {
-  const btnBuy = $$(".btn__buy_product");
+const addEventProducts = (items, parentEl) => {
+  const btnBuy = parentEl.querySelectorAll(".btn__buy_product");
   const btnClose = $(".icon-close");
+  
   btnBuy.forEach((element, index) => {
     element.onclick = function () {
-      console.log(element.parentNode.parentNode);
       $(".container__overlay").classList.add("return__page");
       $(".name__infor_product").textContent =
         element.parentNode.querySelector(".name__item").textContent;
