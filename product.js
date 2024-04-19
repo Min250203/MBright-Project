@@ -35,6 +35,7 @@ const Product = {
       $(".container__product_fortfolio").classList.add("change__product");
       $(".container__product").classList.add("return__page");
       $(".cart__product_order").classList.remove("return__page");
+      $(".container__product_fortfolio").classList.remove("return__page");
     };
 
     home.onclick = function () {
@@ -81,7 +82,7 @@ const Product = {
         $(
           ".mImg__product"
         ).innerHTML = `<img class="mImage" src="${e.target.src}"
-                    alt="">`;
+                        alt="">`;
       };
     });
     btnSize.forEach((element) => {
@@ -172,12 +173,24 @@ const Product = {
         size: _this.statusSize,
         quantity: _this.quantityProduct,
         img: imgProduct,
-      };
-      _this.cart.push(product);
-      Cart.handleGoSeeOrder(_this.cart);
+      }; _this.cart.push(product)
+      Cart.handleGoSeeOrder(_this.cart)
+      $('.popUp__access').classList.add('return__page');
+      _this.statusColor = 0;
+      _this.statusSize = 0
+      _this.handleTime();
     };
   },
-};
+  handleTime: function () {
+    setTimeout(() => {
+      $('.popUp__access').classList.remove('return__page');
+      $('.popUp__err').classList.remove('return__page');
+
+
+    }, 2000)
+    // clearTimeout(timeAdd);
+  }
+}
 
 Product.handleRenderProduct();
 

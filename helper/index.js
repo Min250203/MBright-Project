@@ -20,8 +20,8 @@ const attributesHtml = (data) => {
     return `<div class="size__item">${option.name}</div>
         <div class="size__infor_product">
             ${option.values.map((value) => {
-              return `<button class="select__size size1">${value.label}</button>`;
-            })}
+      return `<button class="select__size size1">${value.label}</button>`;
+    })}
         </div>`;
   });
 
