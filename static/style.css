@@ -26,17 +26,119 @@ html {
 
 .overView {
     background-color: #e4e0e0;
+    min-height: 100vh;
 }
 
 .container {
     width: 85%;
     margin: auto;
-    /* padding: 20px 0; */
+    padding: 20px 0;
 }
 
-/* .container__content{
-    padding:  0 70px;
-} */
+.login {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    background-color: #c4c7c9;
+    padding: 15px;
+}
+
+.image__login {
+    width: 50%;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.infor__login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.forgot_pass, .let_signUp{
+    font-size: 14px;
+    text-align: end;
+    font-family: monospace;
+
+}
+
+.let_signUp{
+    padding-top: 10px;
+    text-align: center;
+}
+._singUp{
+    font-weight: 600;
+}
+
+.title_other {
+    font-family: monospace;
+    font-size: 20px;
+}
+
+.options_login{
+    display: flex;
+    padding-top: 10px;
+    gap: 30px;
+}
+
+.icon-gg,
+.icon-fb,
+.icon-tw {
+    padding: 17px;
+    background-color: #efe5e5;
+    border-radius: 15px;
+    font-size: 25px;
+}
+
+.other__login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.content__infor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 45%;
+    /* padding-top: 40px; */
+    padding: 40px 50px;
+}
+
+.input__login {
+    width: 100%;
+    display: flex;
+    color: #000;
+    padding: 13px;
+    border-radius: 7px;
+    gap: 10px;
+    background-color: #ececec;
+    outline: none;
+}
+
+.signIn {
+    padding: 13px;
+    width: 100%;
+    border-radius: 7px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.title_log {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 10px;
+    font-family: monospace;
+}
+
+.img__login {
+    width: 100%;
+}
 
 .head__nav {
     background-color: #fff;
@@ -104,12 +206,22 @@ li:hover .sub__nav_item-list {
 .action__icon {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 20px;
 }
 
 .slider {
     width: 100%;
 }
+
+
+.container__overlay_login {
+
+    width: 65%;
+    margin: auto;
+    padding: 80px 0;
+}
+
+
 
 .item__slider {
     width: 100%;
@@ -314,12 +426,20 @@ li:hover .sub__nav_item-list {
     cursor: text !important
 }
 
-.icon-search {
+.icon-search,
+.icon-mail,
+.icon-lock {
     color: #000;
 }
 
 .icon-cart {
     color: #FF3300;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.icon-user {
+    color: #777372;
     font-size: 25px;
     cursor: pointer;
 }
@@ -466,10 +586,10 @@ li:hover .sub__nav_item-list {
 .container__cart {
     width: 100%;
     min-height: 90vh;
-    
+
 }
 
-.cart__product_order{
+.cart__product_order {
     display: none;
     background-color: #fff;
     padding: 20px 70px;
@@ -553,27 +673,41 @@ li:hover .sub__nav_item-list {
     font-weight: 600;
 }
 
-.checkbox{
+.checkbox {
     width: 19px;
 }
 
-.popUp__access{
+.popUp__access,
+.popUp__err {
     width: 300px;
-    height: 100px;
-    background-color: rgba(0, 0, 0, 0.1);
-        /* display: flex;
+    height: 130px;
+    padding-top: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, 100%);
+    display: none;
+    /* display: flex;
         flex-direction: column;
         gap: 10px; */
 }
 
-.popUp_{
+.popUp__err {
+    width: 330px;
+}
+
+
+
+
+.popUp_ {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
 }
 
-.icon-check{
+.icon-check {
     background-color: #7ad8af;
     padding: 15px 18px;
     font-size: 29px;
@@ -582,6 +716,16 @@ li:hover .sub__nav_item-list {
     width: 20%;
 }
 
-.mess{
+.icon-sad {
+    background-color: #646753;
+    padding: 4px 4px;
+    font-size: 55px;
+    border-radius: 48px;
+    color: #000;
+    background-color: #fff;
+}
+
+.mess {
     font-size: 16px;
+    font-weight: 600;
 }
