@@ -18,6 +18,9 @@ const minusProduct = $(".minus");
 const buyCart = $(".btn__buy_item");
 const addToCart = $(".btn__add_item");
 const btnColor = $$(".box__color");
+const btnUser = $('.icon-user');
+const btnSignUp = $('._singUp');
+const btnLogin = $('._singIn');
 
 let listProduct = [];
 
@@ -31,7 +34,8 @@ const Product = {
     productItem.onclick = function () {
       $(".slider").classList.add("change__product");
       $(".content__pre_product").classList.add("change__product");
-      $(".container__content").classList.add("change__product");
+      $(".infor__fortfolio").classList.add("change__product");
+      $(".content__infor_product").classList.add("change__product");
       $(".container__product_fortfolio").classList.add("change__product");
       $(".container__product").classList.add("return__page");
       $(".cart__product_order").classList.remove("return__page");
@@ -41,7 +45,8 @@ const Product = {
     home.onclick = function () {
       $(".slider").classList.remove("change__product");
       $(".content__pre_product").classList.remove("change__product");
-      $(".container__content").classList.remove("change__product");
+      $(".infor__fortfolio").classList.add("change__product");
+      $(".content__infor_product").classList.add("change__product");
       $(".container__product").classList.remove("return__page");
       $(".container__product_fortfolio").classList.remove("return__page");
       $(".cart__product_order").classList.remove("return__page");
@@ -49,7 +54,8 @@ const Product = {
     logo.onclick = function () {
       $(".slider").classList.remove("change__product");
       $(".content__pre_product").classList.remove("change__product");
-      $(".container__content").classList.remove("change__product");
+      $(".infor__fortfolio").classList.add("change__product");
+      $(".content__infor_product").classList.add("change__product");
       $(".container__product").classList.remove("return__page");
       $(".container__product_fortfolio").classList.remove("return__page");
       $(".cart__product_order").classList.remove("return__page");
@@ -67,39 +73,12 @@ const Product = {
         ).src;
       };
     });
-    btnClose.onclick = function () {
-      $(".container__overlay").classList.remove("return__page");
-      $(".quantity__real").textContent = `1`;
-      btnSize.forEach((btn) => {
-        btn.classList.remove("change__color_select");
-      });
-      btnColor.forEach((e) => {
-        e.classList.remove("change__color_color");
-      });
-    };
     detailImage.forEach((element) => {
       element.onclick = function (e) {
         $(
           ".mImg__product"
         ).innerHTML = `<img class="mImage" src="${e.target.src}"
                         alt="">`;
-      };
-    });
-    btnSize.forEach((element) => {
-      element.onclick = function (e) {
-        btnSize.forEach((btn) => {
-          btn.classList.remove("change__color_select");
-        });
-        element.classList.add("change__color_select");
-        if (element.classList.contains("size1")) {
-          _this.statusSize = 1;
-        } else if (element.classList.contains("size2")) {
-          _this.statusSize = 2;
-        } else if (element.classList.contains("size3")) {
-          _this.statusSize = 3;
-        } else if (element.classList.contains("size4")) {
-          _this.statusSize = 4;
-        }
       };
     });
     addProduct.onclick = function () {
@@ -119,23 +98,24 @@ const Product = {
         console.log("hihih");
       }
     };
-    btnColor.forEach((item) => {
-      item.onclick = function () {
-        btnColor.forEach((e) => {
-          e.classList.remove("change__color_color");
-        });
-        item.classList.add("change__color_color");
-        if (item.classList.contains("color1")) {
-          _this.statusColor = "black";
-        } else if (item.classList.contains("color2")) {
-          _this.statusColor = "white";
-        } else if (item.classList.contains("color3")) {
-          _this.statusColor = "red";
-        } else if (item.classList.contains("color4")) {
-          _this.statusColor = "green";
-        }
-      };
-    });
+    btnUser.onclick = function () {
+      $('.container').classList.add("change__product");
+      $(".container__overlay_login").classList.add("return__page");
+    }
+    btnSignUp.onclick = function () {
+      $('.content__infor_signUp').classList.remove("change__product");
+      $(".content__infor_signUp").classList.add("return__page");
+      $(".content__infor_logIn").classList.remove("return__page");
+      $(".content__infor_logIn").classList.add("change__product");
+    }
+    btnLogin.onclick = function () {
+      $('.content__infor_logIn').classList.remove("change__product");
+      $(".content__infor_logIn").classList.add("return__page");
+      $(".content__infor_signUp").classList.remove("return__page");
+      $(".content__infor_signUp").classList.add("change__product");
+
+
+    }
     // buyCart.onclick = function () {
     //     $('.slider').classList.add('change__product');
     //     $('.content__pre_product').classList.add('change__product');

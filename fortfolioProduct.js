@@ -72,7 +72,8 @@ const FortforlioProduct = {
             item.onclick = function (e) {
                 $('.slider').classList.add('change__product');
                 $('.content__pre_product').classList.add('change__product');
-                $('.container__content').classList.add('change__product');
+                $(".infor__fortfolio").classList.add("change__product");
+                $(".content__infor_product").classList.add("change__product");
                 $('.container__product_fortfolio').classList.add('return__page')
                 $('.container__product').classList.remove('return__page');
                 $('.cart__product_order').classList.remove('return__page');

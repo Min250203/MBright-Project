@@ -87,7 +87,7 @@ const renderListProduct = (items, parentEl) => {
 const addEventProducts = (items, parentEl) => {
   const btnBuy = parentEl.querySelectorAll(".btn__buy_product");
   const btnClose = $(".icon-close");
-  
+
   btnBuy.forEach((element, index) => {
     element.onclick = function () {
       $(".container__overlay").classList.add("return__page");
@@ -137,7 +137,12 @@ const addEventProducts = (items, parentEl) => {
 };
 
 const fetchData = async (path, method, body = null) => {
-  const data = await fetch(ENDPOINT_SERVER + path, { method, body })
+  console.log("body", body)
+  const data = await fetch(ENDPOINT_SERVER + path, {
+    method, body, headers: {
+      'Content-Type': 'application/json'
+    }
+  })
     .then((res) => res.json())
     .catch((err) => console.log(err));
 

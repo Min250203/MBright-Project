@@ -56,19 +56,36 @@ html {
     align-items: center;
 }
 
-.forgot_pass, .let_signUp{
+.forgot_pass, .let_signUp, .let_signIn{
     font-size: 14px;
     text-align: end;
     font-family: monospace;
 
 }
 
+
 .let_signUp{
     padding-top: 10px;
     text-align: center;
 }
-._singUp{
+._singUp, ._singIn{
     font-weight: 600;
+    cursor: pointer;
+}
+.let_signIn{
+    text-align: center;
+    padding-top: 20px;
+}
+
+.title_other{
+    padding-top: 20px;
+}
+._singUp:hover{
+    text-decoration: underline;
+}
+
+._singIn:hover{
+    text-decoration: underline;
 }
 
 .title_other {
@@ -98,13 +115,17 @@ html {
     align-items: center;
 }
 
-.content__infor {
+.content__infor_logIn, .content__infor_signUp {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 45%;
     /* padding-top: 40px; */
     padding: 40px 50px;
+}
+
+.content__infor_signUp{
+    display: none;
 }
 
 .input__login {
@@ -215,7 +236,7 @@ li:hover .sub__nav_item-list {
 
 
 .container__overlay_login {
-
+display: none;
     width: 65%;
     margin: auto;
     padding: 80px 0;
@@ -432,10 +453,16 @@ li:hover .sub__nav_item-list {
     color: #000;
 }
 
-.icon-cart {
+.icon-cart, .icon-delete {
     color: #FF3300;
     font-size: 25px;
     cursor: pointer;
+}
+
+.more__and_more{
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 .icon-user {
