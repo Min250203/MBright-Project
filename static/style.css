@@ -139,7 +139,7 @@ html {
     outline: none;
 }
 
-.signIn {
+.signIn,.signUp {
     padding: 13px;
     width: 100%;
     border-radius: 7px;
@@ -404,6 +404,13 @@ display: none;
 
 }
 
+.btn__add_item:hover{
+    background-color: #FF3300;
+    cursor: pointer;
+
+
+}
+
 
 .descr__product {
     display: flex;
@@ -430,6 +437,24 @@ display: none;
     width: 100%;
     font-size: 15px;
 
+}
+
+.email-input, .pass-input{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #000;
+    width: 100%;
+    font-size: 15px;
+}
+
+.email-input_signUp, .pass-input_signUp{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #000;
+    width: 100%;
+    font-size: 15px;
 }
 
 .nav__search {

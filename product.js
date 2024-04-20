@@ -3,6 +3,7 @@ import {
   renderListProduct,
   fetchData,
   addEventProducts,
+  convertToString
 } from "./helper/index.js";
 
 const productItem = $(".all__product");
@@ -13,14 +14,17 @@ const btnBuy = $$(".btn__buy_product");
 const btnClose = $(".icon-close");
 const detailImage = $$(".dImage");
 const btnSize = $$(".select__size");
-const addProduct = $(".add");
-const minusProduct = $(".minus");
 const buyCart = $(".btn__buy_item");
-const addToCart = $(".btn__add_item");
 const btnColor = $$(".box__color");
 const btnUser = $('.icon-user');
 const btnSignUp = $('._singUp');
 const btnLogin = $('._singIn');
+const inputEmail = $('.email-input');
+const inputPass = $('.pass-input');
+const signUpInputEmail = $('.email-input_signUp');
+const signUpInputPass = $('.pass-input_signUp');
+const submitLogin = $('.signIn');
+const submitSignUp = $('.signUp')
 
 let listProduct = [];
 
@@ -31,6 +35,8 @@ const Product = {
   quantityProduct: 1,
   handleRenderProduct: function () {
     let _this = this;
+
+    console.log(inputEmail.value)
     productItem.onclick = function () {
       $(".slider").classList.add("change__product");
       $(".content__pre_product").classList.add("change__product");
@@ -81,26 +87,14 @@ const Product = {
                         alt="">`;
       };
     });
-    addProduct.onclick = function () {
-      let quantity = Number($(".quantity__real").textContent);
-      console.log(quantity++);
-      $(".quantity__real").textContent = `${quantity++}`;
-      _this.quantityProduct = Number($(".quantity__real").textContent);
-    };
-    minusProduct.onclick = function () {
-      let quantity = Number($(".quantity__real").textContent);
-      console.log(quantity--);
-
-      if (quantity >= 0) {
-        $(".quantity__real").textContent = `${quantity--}`;
-        _this.quantityProduct = Number($(".quantity__real").textContent);
-      } else {
-        console.log("hihih");
-      }
-    };
+   
     btnUser.onclick = function () {
       $('.container').classList.add("change__product");
       $(".container__overlay_login").classList.add("return__page");
+      $('.container').classList.remove("return__page");
+      $(".container__overlay_login").classList.remove("change__product");
+
+
     }
     btnSignUp.onclick = function () {
       $('.content__infor_signUp').classList.remove("change__product");
@@ -113,63 +107,56 @@ const Product = {
       $(".content__infor_logIn").classList.add("return__page");
       $(".content__infor_signUp").classList.remove("return__page");
       $(".content__infor_signUp").classList.add("change__product");
+    }
+    // inputEmail.oninput = function(e) {
+    //   console.log(e.target.value)
+    // }
+    submitLogin.onclick = async function () {
+      try {
+        const data = await fetchData('/users/login/beta', "POST", convertToString({
+          email: inputEmail.value,
+          password: inputPass.value
+        })
+        )
+        if (data.status === 200) {
+          $('.container').classList.remove("change__product");
+          $(".container__overlay_login").classList.remove("return__page");
+          $('.container').classList.add("return__page");
+          $(".container__overlay_login").classList.add("change__product");
+          inputEmail.value = "";
+          inputPass.value = "";
 
+        }
+      } catch (error) {
+        console.error('Error:', error);
+
+      }
 
     }
-    // buyCart.onclick = function () {
-    //     $('.slider').classList.add('change__product');
-    //     $('.content__pre_product').classList.add('change__product');
-    //     $('.container__content').classList.add('change__product');
-    //     $('.container__product_fortfolio').classList.remove('return__page')
-    //     $('.container__product').classList.remove('return__page');
-    //     $('.container__cart').classList.add('return__page');
-    //     $('.container__overlay').classList.remove('return__page')
-    // }
-    addToCart.onclick = function () {
-      console.log("hihiiiiiihihihihi");
-      console.log(
-        _this.statusColor,
-        "co",
-        _this.statusSize,
-        "size",
-        _this.quantityProduct,
-        "quan"
-      );
-      let nameProduct = $(".btn__add_item").parentNode.parentNode.querySelector(
-        ".name__infor_product"
-      ).textContent;
-      let priceProduct =
-        $(".btn__add_item").parentNode.parentNode.querySelector(
-          ".price"
-        ).textContent;
-      let imgProduct =
-        $(".btn__add_item").parentNode.parentNode.parentNode.querySelector(
-          ".mImage"
-        ).src;
-      let product = {
-        name: nameProduct,
-        price: priceProduct,
-        color: _this.statusColor,
-        size: _this.statusSize,
-        quantity: _this.quantityProduct,
-        img: imgProduct,
-      }; _this.cart.push(product)
-      Cart.handleGoSeeOrder(_this.cart)
-      $('.popUp__access').classList.add('return__page');
-      _this.statusColor = 0;
-      _this.statusSize = 0
-      _this.handleTime();
-    };
+    submitSignUp.onclick = async function () {
+      try {
+        const data = await fetchData('/users/beta', "POST", convertToString({
+          email: signUpInputEmail.value,
+          password: signUpInputPass.value
+        })
+        )
+        if (data.status === 201) {
+          $('.container').classList.remove("change__product");
+          $(".container__overlay_login").classList.remove("return__page");
+          $('.container').classList.add("return__page");
+          $(".container__overlay_login").classList.add("change__product");
+          signUpInputEmail.value = "",
+            signUpInputPass.value = ""
+        }
+      } catch (error) {
+        console.error('Error:', error);
+
+      }
+
+    }
+    
   },
-  handleTime: function () {
-    setTimeout(() => {
-      $('.popUp__access').classList.remove('return__page');
-      $('.popUp__err').classList.remove('return__page');
-
-
-    }, 2000)
-    // clearTimeout(timeAdd);
-  }
+  
 }
 
 Product.handleRenderProduct();

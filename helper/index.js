@@ -8,24 +8,13 @@ const productHtml = (data) => {
         <div class="descr__product">
             <div class="name__item">${data.title}</div>
             <div class="descr__item">
-                <div class="price__item">${data.price}</div>
+                <div class="price__item">${(data.price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
             </div>
             <button class="btn__buy_product">Mua Ngay</button>
         </div>
         </div>`;
-};
 
-const attributesHtml = (data) => {
-  const list = data.map((option) => {
-    return `<div class="size__item">${option.name}</div>
-        <div class="size__infor_product">
-            ${option.values.map((value) => {
-      return `<button class="select__size size1">${value.label}</button>`;
-    })}
-        </div>`;
-  });
 
-  return list.join(" ");
 };
 
 const productDetailHtml = (data) => {
@@ -72,6 +61,8 @@ const productDetailHtml = (data) => {
             </div>`;
 };
 
+
+
 const renderListProduct = (items, parentEl) => {
   let listHtml = items.map((item) => {
     return productHtml(item);
@@ -82,11 +73,17 @@ const renderListProduct = (items, parentEl) => {
   if (parentEl) {
     parentEl.innerHTML = listHtml;
   }
+
 };
 
 const addEventProducts = (items, parentEl) => {
   const btnBuy = parentEl.querySelectorAll(".btn__buy_product");
   const btnClose = $(".icon-close");
+  const addToCart = $(".btn__add_item");
+
+  const addProduct = $(".add");
+  const minusProduct = $(".minus");
+
 
   btnBuy.forEach((element, index) => {
     element.onclick = function () {
@@ -134,17 +131,47 @@ const addEventProducts = (items, parentEl) => {
     //   e.classList.remove("change__color_color");
     // });
   };
+  addProduct.onclick = function () {
+    let quantity = Number($(".quantity__real").textContent);
+    $(".quantity__real").textContent = `${++quantity}`;
+  };
+  minusProduct.onclick = function () {
+    let quantity = Number($(".quantity__real").textContent);
+    if (quantity >= 0) {
+      $(".quantity__real").textContent = `${--quantity}`;
+    } else {
+    }
+  };
+  addToCart.onclick = async function () {
+    let nameProduct = $(".btn__add_item").parentNode.parentNode.querySelector(
+      ".name__infor_product"
+    ).textContent;
+    let itemAdd = items.filter((item) => item.title === nameProduct)
+    // let variationId = itemAdd[0].variation !== null ? itemAdd[0].variation[0] : null;
+    let productId = itemAdd[0]._id;
+    let quantity = Number($(".quantity__real").textContent)
+    try {
+      const data = await fetchData("/carts/increase/66063f8e346942e815a9cd3c", "POST", convertToString({
+        // variation_id: variationId !== null ? variationId : null,
+        product_id: productId,
+        quantity: quantity
+      }));
+      if (data.status === 201) {
+        alert("Sản phẩm được thêm vào giỏ hàng thành công")
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 };
 
 const fetchData = async (path, method, body = null) => {
-  console.log("body", body)
   const data = await fetch(ENDPOINT_SERVER + path, {
     method, body, headers: {
       'Content-Type': 'application/json'
     }
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
 
   return data;
 };
