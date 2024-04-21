@@ -6,62 +6,19 @@ const productHtml = (data) => {
                 alt="">
         </div>
         <div class="descr__product">
-            <div class="name__item">${data.title}</div>
+            <div data-product="${data._id}" class="name__item">${
+    data.title
+  }</div>
             <div class="descr__item">
-                <div class="price__item">${(data.price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                <div class="price__item">${data.price.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND",
+                })}</div>
             </div>
             <button class="btn__buy_product">Mua Ngay</button>
         </div>
         </div>`;
-
-
 };
-
-const productDetailHtml = (data) => {
-  return `
-            <div class="detail__infor_product">
-                <div class="name__infor_product">${data.title}</div>
-                <div class="price">${data.price} VND</div>
-                <div class="color__item">Màu</div>
-                <div class="color__infor_product">
-                    <div class="box__color color1">
-                        <div class="item__color" style="background-color: #000"></div>
-                    </div>
-                    <div class="box__color color2">
-                        <div class="item__color" style="background-color: #ccc"></div>
-                    </div>
-                    <div class="box__color color3">
-                        <div class="item__color" style="background-color: red"></div>
-                    </div>
-                    <div class="box__color color4">
-                        <div class="item__color" style="background-color: green"></div>
-                    </div>
-                </div>
-                <div class="size__item">Size</div>
-                <div class="size__infor_product">
-                    <button class="select__size size1">Size 1</button>
-                    <button class="select__size size2">Size 2</button>
-                    <button class="select__size size3">Size 3</button>
-                    <button class="select__size size4">Size 4</button>
-                </div>
-
-                <div class="quantity">
-                    <div class="name__quantity">Số lượng</div>
-                    <div class="action__quantity">
-                        <i class=" minus fa-solid fa-minus"></i>
-                        <span class="quantity__real">1</span>
-                        <i class="add fa-solid fa-plus"></i>
-                    </div>
-                </div>
-                <div class="btn__action">
-                    <button class="btn__buy_item">Mua Ngay</button>
-                    <button class="btn__add_item">Thêm vào giỏ hàng</button>
-                </div>
-                <div class="detail__des">${data.description}</div>
-            </div>`;
-};
-
-
 
 const renderListProduct = (items, parentEl) => {
   let listHtml = items.map((item) => {
@@ -73,7 +30,6 @@ const renderListProduct = (items, parentEl) => {
   if (parentEl) {
     parentEl.innerHTML = listHtml;
   }
-
 };
 
 const addEventProducts = (items, parentEl) => {
@@ -84,12 +40,15 @@ const addEventProducts = (items, parentEl) => {
   const addProduct = $(".add");
   const minusProduct = $(".minus");
 
-
   btnBuy.forEach((element, index) => {
     element.onclick = function () {
       $(".container__overlay").classList.add("return__page");
       $(".name__infor_product").textContent =
         element.parentNode.querySelector(".name__item").textContent;
+      $(".price").textContent =
+        element.parentNode.querySelector(".price__item").textContent;
+      $(".name__infor_product").dataset.product =
+        element.parentNode.querySelector(".name__item").dataset.product;
       $(".price").textContent =
         element.parentNode.querySelector(".price__item").textContent;
       $(".mImage").src = element.parentNode.parentNode.querySelector(
@@ -112,24 +71,11 @@ const addEventProducts = (items, parentEl) => {
                       alt="">`;
         };
       });
-
-      const attributeParentEl = $(".product_option");
-      if (items[index].options.length > 0) {
-        attributeParentEl.innerHTML = attributesHtml(items[index].options);
-      } else {
-        attributeParentEl.innerHTML = "";
-      }
     };
   });
   btnClose.onclick = function () {
     $(".container__overlay").classList.remove("return__page");
     $(".quantity__real").textContent = `1`;
-    // btnSize.forEach((btn) => {
-    //   btn.classList.remove("change__color_select");
-    // });
-    // btnColor.forEach((e) => {
-    //   e.classList.remove("change__color_color");
-    // });
   };
   addProduct.onclick = function () {
     let quantity = Number($(".quantity__real").textContent);
@@ -143,35 +89,83 @@ const addEventProducts = (items, parentEl) => {
     }
   };
   addToCart.onclick = async function () {
-    let nameProduct = $(".btn__add_item").parentNode.parentNode.querySelector(
+    const inforUser = getLocalstorage("user");
+
+    if (!inforUser) {
+      alert("Vui lòng đăng nhập");
+      redirectLogin();
+      return;
+    }
+
+    let productDataId = $(".btn__add_item").parentNode.parentNode.querySelector(
       ".name__infor_product"
-    ).textContent;
-    let itemAdd = items.filter((item) => item.title === nameProduct)
-    // let variationId = itemAdd[0].variation !== null ? itemAdd[0].variation[0] : null;
-    let productId = itemAdd[0]._id;
-    let quantity = Number($(".quantity__real").textContent)
+    ).dataset.product;
+    let itemAdd = items.find((item) => item._id === productDataId);
+
+    if (!itemAdd) {
+      alert("Lỗi vui lòng thử lại");
+      return;
+    }
+    // let variationId = itemAdd.variation !== null ? itemAdd.variation : null;
+    let productId = itemAdd._id;
+    let quantity = Number($(".quantity__real").textContent);
     try {
-      const data = await fetchData("/carts/increase/66063f8e346942e815a9cd3c", "POST", convertToString({
-        // variation_id: variationId !== null ? variationId : null,
-        product_id: productId,
-        quantity: quantity
-      }));
+      const data = await fetchData(
+        `/carts/increase/${inforUser._id}`,
+        "POST",
+        convertToString({
+          // variation_id: variationId !== null ? variationId : null,
+          product_id: productId,
+          quantity: quantity,
+        })
+      );
       if (data.status === 201) {
-        alert("Sản phẩm được thêm vào giỏ hàng thành công")
+        alert("Sản phẩm được thêm vào giỏ hàng thành công");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 };
 
+const redirectLogin = () => {
+  $(".container").classList.add("change__product");
+  $(".container__overlay_login").classList.add("return__page");
+  $(".container").classList.remove("return__page");
+  $(".container__overlay_login").classList.remove("change__product");
+  $$(".back_home").forEach((item) => (item.onclick = () => redirectHome()));
+};
+
+const redirectSignUp = () => {
+  $(".content__infor_signUp").classList.remove("change__product");
+  $(".content__infor_signUp").classList.add("return__page");
+  $(".content__infor_logIn").classList.remove("return__page");
+  $(".content__infor_logIn").classList.add("change__product");
+};
+
+const redirectHome = () => {
+  $(".container").classList.remove("change__product");
+  $(".container__overlay_login").classList.remove("return__page");
+  $(".container").classList.add("return__page");
+  $(".container__overlay_login").classList.add("change__product");
+
+  $(".slider").classList.remove("change__product");
+  $(".content__pre_product").classList.remove("change__product");
+  $(".infor__fortfolio").classList.remove("change__product");
+  $(".content__infor_product").classList.remove("change__product");
+  // $(".container__product_fortfolio").classList.add("return__page");
+  // $(".container__product").classList.add("return__page");
+  $(".cart__product_order").classList.remove("return__page");
+};
+
 const fetchData = async (path, method, body = null) => {
   const data = await fetch(ENDPOINT_SERVER + path, {
-    method, body, headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((res) => res.json())
+    method,
+    body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
 
   return data;
 };
@@ -180,4 +174,26 @@ const convertToString = (payload) => {
   return JSON.stringify(payload);
 };
 
-export { renderListProduct, fetchData, convertToString, addEventProducts };
+const setLocalstorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+const getLocalstorage = (key) => {
+  const value = localStorage.getItem(key);
+
+  if (!value) return null;
+
+  return JSON.parse(value);
+};
+
+export {
+  renderListProduct,
+  fetchData,
+  convertToString,
+  addEventProducts,
+  setLocalstorage,
+  getLocalstorage,
+  redirectLogin,
+  redirectHome,
+  redirectSignUp,
+};

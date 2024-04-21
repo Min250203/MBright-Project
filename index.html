@@ -417,7 +417,10 @@
                         </label>
                         <button type="submit" class="signIn">Sign In</button>
                     </div>
-                    <div class="forgot_pass">Forgot password?</div>
+                    <div class="wrap_action">
+                        <p class="back_home">Trang chủ</p>
+                        <p class="forgot_pass">Forgot password?</p>
+                    </div>
                     <div class="other__login">
                         <div class="title_other">or Continue with</div>
                         <div class="options_login">
@@ -442,6 +445,10 @@
                         </label>
                         <button type="submit" class="signUp">Sign Up</button>
                     </div>
+                    <div class="wrap_action">
+                        <p class="back_home">Trang chủ</p>
+                        <p class="forgot_pass"></p>
+                    </div>
                     <div class="other__login">
                         <div class="title_other">or Continue with</div>
                         <div class="options_login">
@@ -461,6 +468,7 @@
     const $$ = document.querySelectorAll.bind(document);
     const ENDPOINT_SERVER = "http://137.184.232.94:3006/api/v1";
     const ENDPOINT_IMAGE = "http://137.184.232.94:3006";
+    let user = null;
     /*
         API:
         + Products: /products?page=1
@@ -469,6 +477,6 @@
 </script>
 <script src="./product.js" type="module"></script>
 <script src="./fortfolioProduct.js" type="module"></script>
-<script src="./cart.js" type="module"></script>
+<!-- <script src="./cart.js" type="module"></script> -->
 
 </html>
