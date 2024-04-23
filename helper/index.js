@@ -158,16 +158,34 @@ const redirectHome = () => {
   $(".cart__product_order").classList.remove("return__page");
 };
 
+const checkLogin = () => {
+  const inforUser = getLocalstorage("user");
+  const loginBtn = $(".login_btn");
+  const logoutBtn = $(".logout_btn");
+
+  if(!inforUser) {
+    loginBtn.classList.add("block");
+    logoutBtn.classList.add("hidden");
+    loginBtn.classList.remove("hidden");
+    logoutBtn.classList.remove("block");
+  } else {
+    loginBtn.classList.add("hidden");
+    logoutBtn.classList.add("block");
+    loginBtn.classList.remove("block");
+    logoutBtn.classList.remove("hidden");
+  }
+}
+
 const fetchData = async (path, method, body = null) => {
-  const data = await fetch(ENDPOINT_SERVER + path, {
+  return await fetch(ENDPOINT_SERVER + path, {
     method,
     body,
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => res.json());
-
-  return data;
+  })
+    .then((res) => res.json())
+    .catch((err) => err);
 };
 
 const convertToString = (payload) => {
@@ -177,6 +195,10 @@ const convertToString = (payload) => {
 const setLocalstorage = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
+
+const clearLocalstorage = (key) => {
+  localStorage.removeItem(key)
+}
 
 const getLocalstorage = (key) => {
   const value = localStorage.getItem(key);
@@ -193,7 +215,9 @@ export {
   addEventProducts,
   setLocalstorage,
   getLocalstorage,
+  clearLocalstorage,
   redirectLogin,
   redirectHome,
   redirectSignUp,
+  checkLogin
 };

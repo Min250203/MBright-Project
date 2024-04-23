@@ -773,3 +773,20 @@ li:hover .sub__nav_item-list {
   font-size: 16px;
   font-weight: 600;
 }
+
+.logout_btn,
+.login_btn {
+  font-size: 16px;
+  padding: 4px 10px;
+  border: 1px solid;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}

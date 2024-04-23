@@ -5,22 +5,18 @@ import {
   addEventProducts,
   convertToString,
   setLocalstorage,
-  getLocalstorage,
   redirectLogin,
   redirectSignUp,
   redirectHome,
+  checkLogin,
+  clearLocalstorage,
 } from "./helper/index.js";
 
 const productItem = $(".all__product");
 const logo = $(".logo");
 const home = $(".home__page");
-const fortfolioProduct = $(".product__fortfolio");
 const btnBuy = $$(".btn__buy_product");
-const btnClose = $(".icon-close");
 const detailImage = $$(".dImage");
-const btnSize = $$(".select__size");
-const buyCart = $(".btn__buy_item");
-const btnColor = $$(".box__color");
 const btnUser = $(".icon-user");
 const btnSignUp = $("._singUp");
 const btnLogin = $("._singIn");
@@ -31,8 +27,8 @@ const signUpInputPass = $(".pass-input_signUp");
 const submitLogin = $(".signIn");
 const submitSignUp = $(".signUp");
 const iconCart = $(".icon-cart");
-
-let listProduct = [];
+const loginBtn = $(".login_btn");
+const logoutBtn = $(".logout_btn");
 
 const Product = {
   cart: [],
@@ -66,13 +62,6 @@ const Product = {
       $(".cart__product_order").classList.remove("return__page");
     };
     logo.onclick = function () {
-      // $(".slider").classList.remove("change__product");
-      // $(".content__pre_product").classList.remove("change__product");
-      // $(".infor__fortfolio").classList.add("change__product");
-      // $(".content__infor_product").classList.add("change__product");
-      // $(".container__product").classList.remove("return__page");
-      // $(".container__product_fortfolio").classList.remove("return__page");
-      // $(".cart__product_order").classList.remove("return__page");
       redirectHome();
     };
     btnBuy.forEach((element) => {
@@ -97,8 +86,13 @@ const Product = {
       };
     });
 
-    btnUser.onclick = function () {
+    loginBtn.onclick = function () {
       redirectLogin();
+    };
+    logoutBtn.onclick = function () {
+      clearLocalstorage("user");
+      redirectHome()
+      checkLogin();
     };
     btnSignUp.onclick = function () {
       redirectSignUp();
@@ -131,6 +125,9 @@ const Product = {
           inputPass.value = "";
 
           setLocalstorage("user", data.payload);
+          checkLogin();
+        } else {
+          alert(data.message);
         }
       } catch (error) {
         console.error("Error:", error);
@@ -146,12 +143,18 @@ const Product = {
             password: signUpInputPass.value,
           })
         );
+
         if (data.status === 201) {
           $(".container").classList.remove("change__product");
           $(".container__overlay_login").classList.remove("return__page");
           $(".container").classList.add("return__page");
           $(".container__overlay_login").classList.add("change__product");
           (signUpInputEmail.value = ""), (signUpInputPass.value = "");
+
+          setLocalstorage("user", data.payload);
+          checkLogin();
+        } else {
+          alert(data.message);
         }
       } catch (error) {
         console.error("Error:", error);
@@ -159,7 +162,6 @@ const Product = {
     };
   },
 };
-
 
 const getProducts = async () => {
   const data = await fetchData("/products", "GET");
@@ -171,9 +173,9 @@ const getProducts = async () => {
     );
     renderListProduct(items, parentElement);
     addEventProducts(items, parentElement);
-    listProduct = items;
   }
 };
 
+checkLogin();
 getProducts();
 Product.handleRenderProduct();
