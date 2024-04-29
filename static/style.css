@@ -370,6 +370,7 @@ li:hover .sub__nav_item-list {
 
 .item__iamge_product {
   width: 100%;
+  height: 100%;
 }
 
 .btn__buy_product {
@@ -665,6 +666,10 @@ li:hover .sub__nav_item-list {
   width: 20%;
 }
 
+.image__product{
+  height: 55%;
+}
+
 .image_product_ {
   width: 100%;
 }
@@ -772,21 +777,4 @@ li:hover .sub__nav_item-list {
 .mess {
   font-size: 16px;
   font-weight: 600;
-}
-
-.logout_btn,
-.login_btn {
-  font-size: 16px;
-  padding: 4px 10px;
-  border: 1px solid;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
-}
-
-.block {
-  display: block;
 }
