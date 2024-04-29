@@ -56,7 +56,9 @@ const Product = {
       $(".slider").classList.remove("change__product");
       $(".content__pre_product").classList.remove("change__product");
       $(".infor__fortfolio").classList.add("change__product");
-      $(".content__infor_product").classList.add("change__product");
+      $(".container__content").classList.add("return__page");
+      $(".content__infor_product").classList.remove("change__product");
+      $(".infor__fortfolio").classList.remove("change__product");
       $(".container__product").classList.remove("return__page");
       $(".container__product_fortfolio").classList.remove("return__page");
       $(".cart__product_order").classList.remove("return__page");
